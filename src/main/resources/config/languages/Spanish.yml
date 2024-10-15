@@ -1,0 +1,31 @@
+## Downlaod flag from.
+
+flagURL: "https://flagcdn.com/w160/es.png"
+
+CONFIG_API:
+    dialogTitle: "Ingrese el API_KEY"
+    configInstructions: '<p>Si no tiene un api key, regístrese en <a href="%s">%s</a> es gratis.Sugiero revisar la <a href="http://www.google.com">Documentación</a></p> '
+    btnSave: "Guardar"
+    btnCancel: "Cancelar"
+    wrongAPIkey: "API KEY inválido. Intente nuevamente."
+
+WELCOME:
+  welcomeTo: "Bienvenido a"
+  description: | 
+    Tu herramienta confiable para cotizar el intercambio de divisas. Ingresa la cantidad, selecciona el par de monedas que deseas convertir, y descubre el valor en tiempo real.
+
+    Antes de empezar, selecciona tu idioma.
+  btnStart: "Empezar"
+
+MENUBUTTONS:  
+    btnConverter: "Convertir"
+    btnRecord: "Historial"
+    btnHelp: "Ayuda"
+    btnAbout: "Acerca de"
+  
+CONVERTER:
+    step1: "1. Ingrese una cantidad."
+    step2: "2. Click en "
+    btnConverter: "Convertir"
+    errorInvalidInputTitle: "Número Inválido"
+    errorInvalidInput: "Por favor ingrese un número válido para hacer la conversión."

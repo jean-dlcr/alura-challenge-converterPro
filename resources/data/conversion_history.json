@@ -1,0 +1,16 @@
+[
+    {
+        "date": "2024-10-15 07:01:35",
+        "input_amount": 100,
+        "from_currency": "PEN",
+        "result_amount": 26.83,
+        "to_currency": "USD"
+    },
+    {
+        "date": "2024-10-15 07:01:44",
+        "input_amount": 50,
+        "from_currency": "PHP",
+        "result_amount": 0.87,
+        "to_currency": "USD"
+    }
+]
