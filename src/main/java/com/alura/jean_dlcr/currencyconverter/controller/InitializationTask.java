@@ -145,7 +145,6 @@ public class InitializationTask extends SwingWorker<Void, Integer> implements Li
 
             String flagPath = FLAG_PATH + flagFileName;
             finalCurrencies.add(new CurrencyItem(flagPath, code));
-
             current += progress;
             publish((int) current);
         }

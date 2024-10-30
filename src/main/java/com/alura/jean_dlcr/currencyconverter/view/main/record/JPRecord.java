@@ -4,8 +4,19 @@
  */
 package com.alura.jean_dlcr.currencyconverter.view.main.record;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -18,23 +29,45 @@ public class JPRecord extends javax.swing.JPanel {
      */
     public JPRecord() {
         initComponents();
-        
-        int cant = 10;
-        DefaultTableModel model= (DefaultTableModel)tblRecord.getModel();
-        for(int i=0;i<cant;i++){
-             Object[] rowData = {"", "", 0f, "",0f};
-            model.addRow(rowData);
-            /*model.setValueAt("algo",i,0);
-            model.setValueAt("USD",i,1);
-            model.setValueAt(10.0f*i,i,2);
-            model.setValueAt("pen",i,3);
-            model.setValueAt(300f+i,i,4);*/
-    }   
-        
-        
-       
+        styleHeader();
+        centerBodyColumns();
+        setInitialColumnWidth(0, 205);
+        setRowHeight(35);
     }
 
+   private void styleHeader() {
+    
+    final TableCellRenderer originalRenderer = tblRecord.getTableHeader().getDefaultRenderer();
+    
+    tblRecord.getTableHeader().setDefaultRenderer(new TableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel lbl = (JLabel) originalRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            lbl.setForeground(Color.BLACK);
+            lbl.setHorizontalAlignment(SwingConstants.CENTER);
+            lbl.setFont(new Font("Verdana", Font.BOLD, 13));
+            lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY));
+            return lbl;
+        }
+    });
+}
+   
+   private void setRowHeight(int heightSize) {
+    tblRecord.setRowHeight(heightSize);
+    tblRecord.getTableHeader().setPreferredSize(new Dimension(tblRecord.getTableHeader().getWidth(), heightSize));
+}
+   
+   private void centerBodyColumns() {
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+    tblRecord.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+    tblRecord.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+}
+
+   private void setInitialColumnWidth(int columnIndex, int widthSize) {
+    tblRecord.getColumnModel().getColumn(columnIndex).setPreferredWidth(widthSize);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,12 +77,12 @@ public class JPRecord extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRecord = new javax.swing.JTable();
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel1.setText("Historial");
+        lblTitle.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblTitle.setText("Historial");
 
         tblRecord.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         tblRecord.setModel(new javax.swing.table.DefaultTableModel(
@@ -87,7 +120,7 @@ public class JPRecord extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(lblTitle)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -95,7 +128,7 @@ public class JPRecord extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -104,8 +137,8 @@ public class JPRecord extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JLabel lblTitle;
     public javax.swing.JTable tblRecord;
     // End of variables declaration//GEN-END:variables
 }

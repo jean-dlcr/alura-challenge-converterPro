@@ -6,7 +6,9 @@ package com.alura.jean_dlcr.currencyconverter.view.api;
 
 import com.alura.jean_dlcr.currencyconverter.util.Helper;
 import com.alura.jean_dlcr.currencyconverter.util.StringVariables;
-import com.alura.jean_dlcr.currencyconverter.view.welcome.RoundButton;
+import com.alura.jean_dlcr.currencyconverter.util.RoundButton;
+import java.awt.Desktop;
+import javax.swing.event.HyperlinkEvent;
 
 /**
  *
@@ -20,8 +22,9 @@ public class JDApikey extends javax.swing.JDialog {
     public JDApikey(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Helper.addHiperLink(jTextPane2);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +51,7 @@ public class JDApikey extends javax.swing.JDialog {
         jTextPane2.setContentType("text/html"); // NOI18N
         jTextPane2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTextPane2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextPane2.setText("<p>Si no tiene un api key, regístrese en <a href=\"https://www.exchangerate-api.com/\">https://www.exchangerate-api.com/</a> es gratis. Sugiero revisar la <a href=\"https://www.github.com\">Documentación</a></p>\n");
+        jTextPane2.setText("<p>Si no tiene un api key, regístrese en <a href=\"https://www.exchangerate-api.com/\">https://www.exchangerate-api.com/</a> es gratis. Sugiero revisar la <a href=\"https://github.com/jean-dlcr/alura-challenge-converterPro\">Documentación</a></p>\n");
         jTextPane2.setMaximumSize(new java.awt.Dimension(361, 100));
         jTextPane2.setOpaque(false);
 
@@ -64,7 +67,7 @@ public class JDApikey extends javax.swing.JDialog {
         btnCancel.setMargin(new java.awt.Insets(5, 5, 5, 5));
         btnCancel.setMaximumSize(new java.awt.Dimension(100, 100));
         btnCancel.setMinimumSize(new java.awt.Dimension(0, 0));
-        btnCancel.setPreferredSize(new java.awt.Dimension(88, 28));
+        btnCancel.setPreferredSize(new java.awt.Dimension(88, 30));
 
         btnSaveApiKey.setBackground(new java.awt.Color(42, 122, 228));
         btnSaveApiKey.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -78,7 +81,7 @@ public class JDApikey extends javax.swing.JDialog {
         btnSaveApiKey.setMargin(new java.awt.Insets(5, 5, 5, 5));
         btnSaveApiKey.setMaximumSize(new java.awt.Dimension(100, 100));
         btnSaveApiKey.setMinimumSize(new java.awt.Dimension(0, 0));
-        btnSaveApiKey.setPreferredSize(new java.awt.Dimension(88, 28));
+        btnSaveApiKey.setPreferredSize(new java.awt.Dimension(88, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

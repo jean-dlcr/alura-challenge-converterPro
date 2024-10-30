@@ -11,6 +11,7 @@ import com.alura.jean_dlcr.currencyconverter.view.main.record.JPRecord;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,11 +41,27 @@ public class ControllerRecord {
     }
 
     private void init() {
-        this.mainView.setTitle(String.format("%s - %s", this.mainView.getTitle(), labelButton));
+        this.mainView.setTitle(String.format("%s - %s", StringVariables.BRAND, labelButton));
+        this.pnlRecord.lblTitle.setText(languageLoader.getValue("RECORD.title"));
+        setColumnHeader(languageLoader.getValue("RECORD.tblHeader").split(","));
         model = (DefaultTableModel) this.pnlRecord.tblRecord.getModel();
         model.setRowCount(0);
         readJsonFile();
     }
+    
+   private void setColumnHeader(String[] headerNames) {
+    int currentHeaderCount = this.pnlRecord.tblRecord.getColumnModel().getColumnCount();
+
+    if (headerNames.length != currentHeaderCount) {
+        JOptionPane.showMessageDialog(null, String.format(languageLoader.getValue("RECORD.errorTblHeader"),currentHeaderCount), "Error", JOptionPane.ERROR_MESSAGE);
+        System.exit(0);
+    } else {
+        for (int i = 0; i < headerNames.length; i++) {
+            this.pnlRecord.tblRecord.getColumnModel().getColumn(i).setHeaderValue(headerNames[i]);
+        }
+        this.pnlRecord.tblRecord.getTableHeader().repaint();
+    }
+}
 
     private void events() {
 

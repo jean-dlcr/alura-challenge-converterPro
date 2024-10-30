@@ -38,12 +38,12 @@ import org.json.JSONObject;
  */
 public class ControllerConverter implements ActionListener {
 
-    private LanguageYMLLoader languageLoader;
-    private JFMain mainView;
-    private JPConverter pnlConverter;
-    private ControllerApi controllerApi;
-    private ArrayList<CurrencyItem> currencies;
-    private String labelButton;
+    private final LanguageYMLLoader languageLoader;
+    private final JFMain mainView;
+    private final JPConverter pnlConverter;
+    private final ControllerApi controllerApi;
+    private final ArrayList<CurrencyItem> currencies;
+    private final String labelButton;
 
     public ControllerConverter(JFMain mainView, LanguageYMLLoader languageLoader, ControllerApi controllerApi, JPConverter pnlConverter, String labelButton) {
         this.mainView = mainView;
@@ -57,9 +57,7 @@ public class ControllerConverter implements ActionListener {
     }
 
     private void init() {
-        this.mainView.setTitle(String.format("%s - %s", this.mainView.getTitle(), labelButton));
-        this.pnlConverter.lblStep1.setText(languageLoader.getValue("CONVERTER.step1"));
-        this.pnlConverter.lblStep2.setText(String.format("%s %s.", languageLoader.getValue("CONVERTER.step2"), languageLoader.getValue("CONVERTER.btnConverter")));
+        this.mainView.setTitle(String.format("%s - %s", StringVariables.BRAND, labelButton));
         this.pnlConverter.btnConverter.setText(languageLoader.getValue("CONVERTER.btnConverter"));
         loadCboLanguages();
         setSelectedCurrency(this.pnlConverter.cboCurrency1, "PEN");

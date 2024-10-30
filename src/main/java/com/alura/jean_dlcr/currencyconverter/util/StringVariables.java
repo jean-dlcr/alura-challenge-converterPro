@@ -10,7 +10,10 @@ package com.alura.jean_dlcr.currencyconverter.util;
  */
 public class StringVariables {
     public final static String BRAND = "ConverterPro";
-    public final static String GITHUB = "ConverterPro";
+    public final static String VERSION = "1.0";
+    public final static String GITHUB = "GitHub";
+    
+    public final static String GITHUB_LINK = "https://github.com/jean-dlcr/alura-challenge-converterPro";
     
     public final static String MSG_LOADING_CONFIG = "Cargando archivos de configuración...";
     public final static String MSG_LOADING_LANGUAGE = "Cargando archivos de idioma...";

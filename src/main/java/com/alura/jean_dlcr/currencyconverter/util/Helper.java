@@ -5,6 +5,7 @@
 package com.alura.jean_dlcr.currencyconverter.util;
 
 import java.awt.Desktop;
+import java.awt.Panel;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -21,6 +22,8 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
+import javax.swing.event.HyperlinkEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -117,6 +120,19 @@ public class Helper {
             Logger.getLogger(Helper.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo abrir el navegador. Verifique la URL o la configuración de su sistema.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    
+    public static void addHiperLink(JTextPane p){
+        p.addHyperlinkListener(e -> {
+                if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
+                    try {
+                        Desktop.getDesktop().browse(e.getURL().toURI());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
     }
 
 }

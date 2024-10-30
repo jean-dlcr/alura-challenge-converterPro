@@ -91,6 +91,7 @@ public class ControllerConfig {
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
+            overrideEmergency();
         }
         return properties;
     }

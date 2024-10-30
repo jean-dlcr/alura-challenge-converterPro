@@ -1,13 +1,18 @@
 package com.alura.jean_dlcr.currencyconverter.controller.main;
 
 import com.alura.jean_dlcr.currencyconverter.controller.api.ControllerApi;
+import com.alura.jean_dlcr.currencyconverter.controller.main.about.ControllerAbout;
 import com.alura.jean_dlcr.currencyconverter.controller.main.converter.ControllerConverter;
+import com.alura.jean_dlcr.currencyconverter.controller.main.help.ControllerHelp;
 import com.alura.jean_dlcr.currencyconverter.controller.main.record.ControllerRecord;
 import com.alura.jean_dlcr.currencyconverter.util.LanguageYMLLoader;
 import com.alura.jean_dlcr.currencyconverter.util.StringVariables;
 import com.alura.jean_dlcr.currencyconverter.view.main.JFMain;
+import com.alura.jean_dlcr.currencyconverter.view.main.about.JPAbout;
 import com.alura.jean_dlcr.currencyconverter.view.main.converter.JPConverter;
+import com.alura.jean_dlcr.currencyconverter.view.main.help.JPHelp;
 import com.alura.jean_dlcr.currencyconverter.view.main.record.JPRecord;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +20,9 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import com.alura.jean_dlcr.currencyconverter.util.IHasScrollPane;
 
 /**
  *
@@ -90,16 +98,23 @@ public class ControllerMain implements ActionListener, MouseListener {
     }
 
     private void changePanel(JPanel pnl){
-    this.mainViewTemplate.pnlMain.removeAll();
+        this.mainViewTemplate.pnlMain.removeAll();
         this.mainViewTemplate.pnlMain.add(pnl);
         this.mainViewTemplate.revalidate();
         this.mainViewTemplate.repaint();
+        
+        SwingUtilities.invokeLater(() -> {
+        if (pnl instanceof IHasScrollPane) {
+            JScrollPane scrollPane = ((IHasScrollPane) pnl).getScrollPane();
+            scrollPane.getViewport().setViewPosition(new Point(0, 0));
+        }
+    });
     }
     
     private void OnClickConverter(String label) {
         //[400, 270]
         JPConverter pnlConverter = new JPConverter();
-        ControllerConverter controllerConverter = new ControllerConverter(mainViewTemplate, languageLoader, controllerApi, pnlConverter, label);
+        new ControllerConverter(mainViewTemplate, languageLoader, controllerApi, pnlConverter, label);
         changePanel(pnlConverter);
     }
     
@@ -107,8 +122,20 @@ public class ControllerMain implements ActionListener, MouseListener {
 
     private void OnClickRecord(String label) {
         JPRecord pnlRecord = new JPRecord();
-        ControllerRecord controllerRecord = new ControllerRecord(mainViewTemplate, languageLoader, pnlRecord, label);
+        new ControllerRecord(mainViewTemplate, languageLoader, pnlRecord, label);
         changePanel(pnlRecord);
+    }
+    
+    private void OnClickHelp(String label) {
+        JPHelp pnlHelp = new JPHelp();
+        new ControllerHelp(mainViewTemplate, languageLoader, pnlHelp, label);
+        changePanel(pnlHelp);
+    }
+    
+    private void OnClickAbout(String label) {
+        JPAbout pnlAbout = new JPAbout();
+        new ControllerAbout(mainViewTemplate, languageLoader, pnlAbout, label);
+        changePanel(pnlAbout);
     }
     
     /*private void OnClickHelp() {
@@ -117,11 +144,7 @@ public class ControllerMain implements ActionListener, MouseListener {
         changePanel(pnlHelp);
     }
     
-    private void OnClickAbout() {
-        JPAbout pnlHelp = new JPAbout();
-        ControllerAbout controllerAbout = new ControllerAbout(mainViewTemplate, languageLoader, pnlHelp, label);
-        changePanel(pnlAbout);
-    }*/
+    */
 
     @Override
     public void actionPerformed(ActionEvent evt) {
@@ -131,6 +154,10 @@ public class ControllerMain implements ActionListener, MouseListener {
             OnClickConverter(languageLoader.getValue("MENUBUTTONS.btnConverter"));
         } else if (isButton(e, languageLoader.getValue("MENUBUTTONS.btnRecord"))) {
             OnClickRecord(languageLoader.getValue("MENUBUTTONS.btnRecord"));
+        } else if (isButton(e, languageLoader.getValue("MENUBUTTONS.btnHelp"))){
+            OnClickHelp(languageLoader.getValue("MENUBUTTONS.btnHelp"));
+        } else if (isButton(e, languageLoader.getValue("MENUBUTTONS.btnAbout"))){
+            OnClickAbout(languageLoader.getValue("MENUBUTTONS.btnHelp"));
         }
     }
 
