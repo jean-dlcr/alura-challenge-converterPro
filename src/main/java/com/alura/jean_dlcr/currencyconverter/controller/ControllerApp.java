@@ -47,7 +47,6 @@ public class ControllerApp {
                             baseName = FilenameUtils.getBaseName(file.getName());
                             imgFlagURL = (String) loadedYMLObject.get("flagURL");
                             languageItem = new LanguageItem(baseName, imgFlagURL);
-
                             imgFlagPath = downloadFlag(imgFlagURL, baseName);
                             if (imgFlagPath != null) {
                                 languageItem.setImgFlagPath(imgFlagPath);

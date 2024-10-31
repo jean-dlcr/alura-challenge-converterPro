@@ -194,16 +194,15 @@ private void saveConversionToJson(String codeFrom, double inputAmount, String co
             if (jsonResponse.has("result") && jsonResponse.getString("result").equals("success")) {
                 conversionRate = jsonResponse.getDouble("conversion_rate");
             } else {
-                System.out.println("Failed to get a valid response.");
+                System.out.println("Error al obtener respuesta.");
             }
         } else {
-            System.out.println("Invalid JSON response.");
+            System.out.println("Respuesta JSON inválida.");
         }
         return conversionRate;
     }
     
     private void OnChangeSelectedCBO(JComboBox e){
-        System.out.println("chaenged: " + e.getSelectedItem());
         this.pnlConverter.txtInputFrom.setText("");
         this.pnlConverter.txtResultConverted.setText("");
     }

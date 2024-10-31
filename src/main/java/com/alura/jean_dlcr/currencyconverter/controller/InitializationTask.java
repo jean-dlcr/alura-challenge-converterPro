@@ -89,7 +89,6 @@ public class InitializationTask extends SwingWorker<Void, Integer> implements Li
 
         controllerSplashScreen.setStatus(StringVariables.MSG_LOADING_CURRENCIES);
         controllerApi.checkAvailableCurrencies();
-        System.out.println("ahora esto 2");
         cantFlag = controllerApi.getSizeJSONArray();
         progressStep = 100f / (4 + cantFlag);
         currentProgress = 4 * progressStep;
@@ -188,13 +187,11 @@ public class InitializationTask extends SwingWorker<Void, Integer> implements Li
     @Override
     public void onDialogComplete(ControllerApiKey_Frame refController, boolean ready, String apikey) {
         boolean res = false;
-        System.out.println("rady: " + ready);
         if (!ready) {
             System.exit(0);
         } else {
-            res = checkApiWorks(apikey);
+            res = checkApiWorks(apikey.trim());
             refController.clear();
-            System.out.println("res: " + res);
             if (res) {
                 controllerConfig.setApiKey(apikey);
                 Helper.setApikey(apikey);

@@ -51,7 +51,7 @@ public class JDApikey extends javax.swing.JDialog {
         jTextPane2.setContentType("text/html"); // NOI18N
         jTextPane2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTextPane2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextPane2.setText("<p>Si no tiene un api key, regístrese en <a href=\"https://www.exchangerate-api.com/\">https://www.exchangerate-api.com/</a> es gratis. Sugiero revisar la <a href=\"https://github.com/jean-dlcr/alura-challenge-converterPro\">Documentación</a></p>\n");
+        jTextPane2.setText("<html>\n<body style='background-color:transparent;font:Verdana;font-size:9px;'>\n<p>Si no tiene un api key, regístrese en <a href=\"https://www.exchangerate-api.com/\">https://www.exchangerate-api.com/</a> es gratis. Sugiero revisar la <a href=\"https://github.com/jean-dlcr/alura-challenge-converterPro\">Documentación</a></p>\n</html>\n</body>");
         jTextPane2.setMaximumSize(new java.awt.Dimension(361, 100));
         jTextPane2.setOpaque(false);
 

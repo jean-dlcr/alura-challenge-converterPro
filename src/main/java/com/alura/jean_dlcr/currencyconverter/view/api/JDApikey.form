@@ -87,7 +87,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;p&gt;Si no tiene un api key, reg&#xed;strese en &lt;a href=&quot;https://www.exchangerate-api.com/&quot;&gt;https://www.exchangerate-api.com/&lt;/a&gt; es gratis. Sugiero revisar la &lt;a href=&quot;https://github.com/jean-dlcr/alura-challenge-converterPro&quot;&gt;Documentaci&#xf3;n&lt;/a&gt;&lt;/p&gt;&#xa;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;body style=&apos;background-color:transparent;font:Verdana;font-size:9px;&apos;&gt;&#xa;&lt;p&gt;Si no tiene un api key, reg&#xed;strese en &lt;a href=&quot;https://www.exchangerate-api.com/&quot;&gt;https://www.exchangerate-api.com/&lt;/a&gt; es gratis. Sugiero revisar la &lt;a href=&quot;https://github.com/jean-dlcr/alura-challenge-converterPro&quot;&gt;Documentaci&#xf3;n&lt;/a&gt;&lt;/p&gt;&#xa;&lt;/html&gt;&#xa;&lt;/body&gt;"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[361, 100]"/>
         </Property>

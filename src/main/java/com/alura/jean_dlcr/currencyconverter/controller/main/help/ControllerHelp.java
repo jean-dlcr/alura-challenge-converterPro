@@ -57,7 +57,6 @@ public class ControllerHelp {
             break;
         }
         text = String.format("%s. %s",stepIndex,stepText);
-        System.out.println(text);
         htmlContent.append(text).append("<br><br>");
         stepIndex++;
     }
@@ -78,7 +77,6 @@ public class ControllerHelp {
     htmlContent.append("</body></html>");
     this.pnlHelp.txtPnl.setContentType("text/html");
     this.pnlHelp.txtPnl.setText(htmlContent.toString());
-        System.out.println(this.pnlHelp.txtPnl.getText());
 }
 
 

@@ -12,12 +12,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.yaml.snakeyaml.Yaml;
@@ -31,10 +37,10 @@ public class ControllerConfig {
     private static final String CURRENT_PATH = StringVariables.CURRENT_PATH;
     private static final String CONFIG_PATH = StringVariables.CURRENT_PATH + "/config/config.ini";
 
-    private ArrayList<LanguageItem>languagesFilesAvailable = new ArrayList<>();
-    
+    private ArrayList<LanguageItem> languagesFilesAvailable = new ArrayList<>();
+
     private static final String languageEmergency = "Spanish";
-    
+
     // Método para crear la carpeta config
     public void createConfig() {
         File configDir = new File(CURRENT_PATH + File.separator + "config");
@@ -45,9 +51,9 @@ public class ControllerConfig {
                 System.out.println("Carpeta 'config' creada exitosamente en: " + configDir.getPath());
 
                 try {
-                    copyResourceDirectory("/config", configDir);
+                    copyResourceDirectory("config", configDir);
                     System.out.println("Archivos copiados exitosamente a: " + configDir.getPath());
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println("Error al copiar archivos: " + e.getMessage());
                 }
             } else {
@@ -55,17 +61,47 @@ public class ControllerConfig {
             }
         } else {
             System.out.println("La carpeta 'config' ya existe en: " + configDir.getPath());
-        }        
+        }
     }
 
-    // Método para copiar el directorio desde resources
-    private void copyResourceDirectory(String resourcePath, File destinationDir) throws IOException {
+    // Método para copiar el directorio desde resources en IDE usar resourcePath como /config
+    /*private void copyResourceDirectory(String resourcePath, File destinationDir) throws IOException {
         URL resourceURL = getClass().getResource(resourcePath);
         if (resourceURL == null) {
             throw new IOException("No se pudo encontrar el recurso: " + resourcePath);
         }
         File sourceDirectory = new File(resourceURL.getFile());
         FileUtils.copyDirectory(sourceDirectory, destinationDir);
+    }*/
+    private void copyResourceDirectory(String resourcePath, File destinationDir) throws IOException {
+        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+        if (jarFile.isFile()) { // Ejecutando desde un JAR
+            try (JarFile jar = new JarFile(jarFile)) {
+                final Enumeration<JarEntry> entries = jar.entries();
+
+                while (entries.hasMoreElements()) {
+                    final JarEntry entry = entries.nextElement();
+                    final String entryName = entry.getName();
+
+                    // Filtrar los archivos que comienzan con el path deseado
+                    if (entryName.startsWith(resourcePath + "/") && !entry.isDirectory()) {
+                        // Extraer el archivo y copiarlo al directorio de destino
+                        File destFile = new File(destinationDir, entryName.substring(resourcePath.length() + 1));
+                        if (!destFile.getParentFile().exists()) {
+                            destFile.getParentFile().mkdirs();
+                        }
+
+                        // Copiar el contenido del archivo desde el JAR
+                        try (InputStream inputStream = jar.getInputStream(entry)) {
+                            FileUtils.copyInputStreamToFile(inputStream, destFile);
+                        }
+                    }
+                }
+            }
+        } else {
+            throw new IOException("No se está ejecutando desde un archivo JAR");
+        }
     }
 
     public void overrideEmergency() {
@@ -85,7 +121,7 @@ public class ControllerConfig {
         createConfig();
     }
 
-     private Properties loadProperties() {
+    private Properties loadProperties() {
         Properties properties = new Properties();
         try (FileInputStream input = new FileInputStream(CONFIG_PATH)) {
             properties.load(input);
@@ -105,7 +141,6 @@ public class ControllerConfig {
         }
     }
 
-    // Método para cargar el archivo de idioma basado en la configuración actual
     public LanguageYMLLoader loadLanguage() {
         Properties properties = loadProperties();
         LanguageYMLLoader languageYMLObject = null;
@@ -113,72 +148,68 @@ public class ControllerConfig {
         // Obtener el valor de 'language'
         String language = properties.getProperty("language");
         if (Helper.isNullOrEmpty(language)) {
-          language = languageEmergency;  
-        } 
+            language = languageEmergency;
+        }
+        String ymlFilePath = StringVariables.CURRENT_PATH + "/config/languages/" + language + ".yml";
+        Path path = Path.of(ymlFilePath);
 
-        System.out.println("language: " + language);
-            String ymlFilePath = StringVariables.CURRENT_PATH + "/config/languages/" + language + ".yml";
-            Path path = Path.of(ymlFilePath);
-
-            if (Files.exists(path)) {
-                Yaml yaml = new Yaml();
-                try (FileInputStream ymlInput = new FileInputStream(path.toFile())) {
-                    Map<String, Object> loadedYMLObject = yaml.load(ymlInput);
-                    languageYMLObject = new LanguageYMLLoader(loadedYMLObject);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println("El archivo de idioma no existe: " + ymlFilePath);
-                languageYMLObject = secureLoad();
-                if(languageYMLObject == null){
-                    overrideEmergency();
-                    return secureLoad();
-                }
+        if (Files.exists(path)) {
+            Yaml yaml = new Yaml();
+            try (FileInputStream ymlInput = new FileInputStream(path.toFile())) {
+                Map<String, Object> loadedYMLObject = yaml.load(ymlInput);
+                languageYMLObject = new LanguageYMLLoader(loadedYMLObject);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        } else {
+            System.out.println("El archivo de idioma no existe: " + ymlFilePath);
+            overrideEmergency();
+            return secureLoad();
+        }
         return languageYMLObject;
     }
 
-    private LanguageYMLLoader secureLoad(){
-            String ymlFilePath = StringVariables.CURRENT_PATH + "/config/languages/Spanish.yml";
-            Path path = Path.of(ymlFilePath);
+    
+    private LanguageYMLLoader secureLoad() {
+        String ymlFilePath = StringVariables.CURRENT_PATH + "/config/languages/Spanish.yml";
+        Path path = Path.of(ymlFilePath);
 
-            if (Files.exists(path)) {
-                Yaml yaml = new Yaml();
-                try (FileInputStream ymlInput = new FileInputStream(path.toFile())) {
-                    Map<String, Object> loadedYMLObject = yaml.load(ymlInput);
-                    return new LanguageYMLLoader(loadedYMLObject);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } 
-            return null;
+        if (Files.exists(path)) {
+            Yaml yaml = new Yaml();
+            try (FileInputStream ymlInput = new FileInputStream(path.toFile())) {
+                Map<String, Object> loadedYMLObject = yaml.load(ymlInput);
+                return new LanguageYMLLoader(loadedYMLObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
     
-    private void writeValue(String key, String value){
+    private void writeValue(String key, String value) {
         Properties properties = loadProperties();
         properties.setProperty(key, value);
         saveProperties(properties);
     }
-    
+
     // Método para actualizar la propiedad 'language' en el archivo .ini
     public void setLanguage(String newLanguage) {
         writeValue("language", newLanguage);
     }
-    
+
     public void setApiKey(String apikey) {
         writeValue("api_key", apikey);
     }
 
-    public String getApikey(){
-         Properties properties = loadProperties();
-        
+    public String getApikey() {
+        Properties properties = loadProperties();
+
         return (String) properties.getProperty("api_key");
     }
-    
-    public String getLanguageProperty(){
+
+    public String getLanguageProperty() {
         Properties properties = loadProperties();
         return (String) properties.getProperty("language");
     }
-    
+
 }

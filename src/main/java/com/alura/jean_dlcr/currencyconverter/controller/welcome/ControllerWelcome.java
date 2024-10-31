@@ -46,7 +46,6 @@ public class ControllerWelcome implements ActionListener {
         
         String aux = controllerConfig.getLanguageProperty();
         if(!Helper.isNullOrEmpty(aux)){
-            System.out.println("ya hay idioma: " + aux);
             this.welcomeView.btnStart.doClick();
         }else{
             this.welcomeView.setVisible(true);

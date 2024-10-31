@@ -19,5 +19,12 @@
         "from_currency": "PLN",
         "result_amount": 248.8,
         "to_currency": "USD"
+    },
+    {
+        "date": "2024-10-30 08:40:06",
+        "input_amount": 100,
+        "from_currency": "PHP",
+        "result_amount": 1.71,
+        "to_currency": "USD"
     }
 ]

@@ -33,12 +33,8 @@ public class ControllerApi {
     
     public void checkAvailableCurrencies(){
         // Obtener el array de "supported_codes"
-        System.out.println("apikey: " + Helper.getApikey());
-                     System.out.println(String.format(StringVariables.API_ENDPOINT_SUPPORTED_CODES,Helper.getApikey()));
         JSONObject jsonResponse = (JSONObject)Helper.getJSON_FromAPI_ENDPOINT(String.format(StringVariables.API_ENDPOINT_SUPPORTED_CODES,Helper.getApikey()));
              supportedCodes = jsonResponse.getJSONArray("supported_codes");
-             System.out.println(String.format(StringVariables.API_ENDPOINT_SUPPORTED_CODES,Helper.getApikey()));
-             System.out.println("size: " + supportedCodes.length());
     }
     
     public int getSizeJSONArray(){
