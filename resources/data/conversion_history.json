@@ -26,5 +26,33 @@
         "from_currency": "PHP",
         "result_amount": 1.71,
         "to_currency": "USD"
+    },
+    {
+        "date": "2024-11-09 11:36:51",
+        "input_amount": 100,
+        "from_currency": "PEN",
+        "result_amount": 100,
+        "to_currency": "PEN"
+    },
+    {
+        "date": "2024-11-09 11:56:47",
+        "input_amount": 1,
+        "from_currency": "PEN",
+        "result_amount": 0.27,
+        "to_currency": "USD"
+    },
+    {
+        "date": "2024-11-09 11:57:43",
+        "input_amount": 1,
+        "from_currency": "PEN",
+        "result_amount": 0.27,
+        "to_currency": "USD"
+    },
+    {
+        "date": "2024-11-09 11:58:00",
+        "input_amount": 100,
+        "from_currency": "PEN",
+        "result_amount": 100,
+        "to_currency": "PEN"
     }
 ]

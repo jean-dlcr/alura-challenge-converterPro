@@ -26,7 +26,7 @@ MENUBUTTONS:
 CONVERTER:
     btnConverter: "Convertir"
     errorInvalidInputTitle: "Número Inválido"
-    errorInvalidInput: "Por favor ingrese un número válido para hacer la conversión."
+    errorInvalidInput: "Por favor ingrese un número válido para hacer la conversión."    
 
 RECORD:
     title: "Historial"
@@ -36,7 +36,7 @@ RECORD:
 HELP:
     title: "Ayuda"
     step1: "Seleccione una moneda de origen."
-    step2: "Ingrese la cantidad a cotizar."
+    step2: "Ingrese la cantidad a convertir."
     step3: "Seleccione una moneda de destino."
     step4: "De clic en %s para procesar el cambio."
     note1: "Intercambia las monedas de origen y destino."
